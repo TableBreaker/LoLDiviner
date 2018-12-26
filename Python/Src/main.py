@@ -4,9 +4,7 @@ import json
 import sys
 import time
 import api
-from lolData import matchData
-from lolData import apiData
-from lolData import generatedData
+from lolData import matchData, apiData, generatedData, matchListData, summonerData
 
 def main():
     res = api.requestMatchData(2938928303)
@@ -21,9 +19,11 @@ def makeGroup(targetMatch):
     return group
 
 def exportJson(obj, name):
-    js = open("Resource/" + name + ".json", "w")
+    path = "Resource/" + name + ".json"
+    js = open(path, "w")
     json.dump(obj, js)
     js.close()
+    print ("write json file: " + path)
 
 if __name__ == "__main__":
     main()

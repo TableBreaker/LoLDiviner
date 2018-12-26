@@ -1,5 +1,4 @@
 #coding=utf-8
-import json
 
 APIKEY = "RGAPI-939b3ebe-3a4c-4fdc-8b7d-202d41d82459"
 
