@@ -2,38 +2,28 @@
 import requests
 import json
 import sys
-import data
 import time
+import api
+from lolData import matchData
+from lolData import apiData
+from lolData import generatedData
 
 def main():
+    res = api.requestMatchData(2938928303)
+    match = matchData.MatchDto(res)
+    exportJson(match.jsonData, "test")
+    #group = makeGroup(match)
     
     return 0
 
-def requestSummonerData(summonerName):
-    return None
+def makeGroup(targetMatch):
+    group = generatedData.MatchGroup(targetMatch)
+    return group
 
-def requestMasterQueue():
-    return None
-
-def requestGrandMasterQueue():
-    return None
-
-def requestChallengerQueue():
-    return None
-
-def requestMatchData(matchId):
-    return None
-
-def requestMatchList(accountId):
-    return None
-
-def requestURL(API, param):
-    urlFormat = "https://na1.api.riotgames.com{0}{1}?api_key={2}"
-    url = urlFormat.format(API, param, data.ApiUrl.APIKEY)
-    print ("Request: " + url)
-    response = requests.get(url)
-    time.sleep(.05)
-    return response.json()
+def exportJson(obj, name):
+    js = open("Resource/" + name + ".json", "w")
+    json.dump(obj, js)
+    js.close()
 
 if __name__ == "__main__":
     main()

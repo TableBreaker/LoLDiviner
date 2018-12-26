@@ -1,5 +1,9 @@
+#coding=utf-8
+import json
+
+APIKEY = "RGAPI-939b3ebe-3a4c-4fdc-8b7d-202d41d82459"
+
 class ApiUrl:
-    APIKEY = "RGAPI-7c1b6c40-be55-40ba-b80b-3fb8a2d48cb5"
     MASTER_LEAGUE_API = "/lol/league/v4/masterleagues/by-queue/"
     GRANDMASTER_LEAGUE_API = "/lol/league/v4/grandmasterleagues/by-queue/"
     CHALLENGER_LEAGUE_API = "/lol/league/v4/challengerleagues/by-queue/"
