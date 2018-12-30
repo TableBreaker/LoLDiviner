@@ -1,6 +1,6 @@
 #coding=utf-8
 
-APIKEY = "RGAPI-939b3ebe-3a4c-4fdc-8b7d-202d41d82459"
+APIKEY = "RGAPI-e57e6f5e-9ee8-477b-9088-d2cf2e84c6df"
 
 class ApiUrl:
     MASTER_LEAGUE_API = "/lol/league/v4/masterleagues/by-queue/"
@@ -9,6 +9,7 @@ class ApiUrl:
     MATCH_API = "/lol/match/v4/matches/"
     ACCOUNT_MATCH_LIST_API = "/lol/match/v4/matchlists/by-account/"
     SUMMONER_DATA_API = "/lol/summoner/v4/summoners/by-name/"
+    SUMMONER_DATA_BY_ACCOUNT_API = "/lol/summoner/v4/summoners/by-account/"
 
 class ApiParam:
     SOLORANK = "RANKED_SOLO_5x5"

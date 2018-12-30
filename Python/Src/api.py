@@ -7,16 +7,24 @@ from lolData import matchData
 from lolData import apiData
 
 def requestSummonerData(summonerName):
-    return None
+    response = requestURL(apiData.ApiUrl.SUMMONER_DATA_API, summonerName)
+    return response
+
+def requestSummonerDataByAccount(accountId):
+    response = requestURL(apiData.ApiUrl.SUMMONER_DATA_BY_ACCOUNT_API, accountId)
+    return response
 
 def requestMasterQueue():
-    return None
+    response = requestURL(apiData.ApiUrl.MASTER_LEAGUE_API, apiData.ApiParam.SOLORANK)
+    return response
 
 def requestGrandMasterQueue():
-    return None
+    response = requestURL(apiData.ApiUrl.GRANDMASTER_LEAGUE_API, apiData.ApiParam.SOLORANK)
+    return response
 
 def requestChallengerQueue():
-    return None
+    response = requestURL(apiData.ApiUrl.CHALLENGER_LEAGUE_API, apiData.ApiParam.SOLORANK)
+    return response
 
 def requestMatchData(matchId):
     response = requestURL(apiData.ApiUrl.MATCH_API, matchId)

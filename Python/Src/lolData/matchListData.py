@@ -2,7 +2,7 @@
 
 class MatchlistDto:
     def __init__(self, jsonData):
-        self.jsonData = jsonData
+        #self.jsonData = jsonData
         self.matches = []
         for item in jsonData["matches"]:
             self.matches.append(MatchReferenceDto(item))
@@ -13,7 +13,7 @@ class MatchlistDto:
 
 class MatchReferenceDto:
     def __init__(self, jsonData):
-        self.jsonData = jsonData
+        #self.jsonData = jsonData
         self.lane = jsonData["lane"]
         self.gameId = jsonData["gameId"]
         self.champion = jsonData["champion"]
