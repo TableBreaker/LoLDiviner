@@ -1,6 +1,6 @@
 #coding=utf-8
 
-APIKEY = "RGAPI-e57e6f5e-9ee8-477b-9088-d2cf2e84c6df"
+APIKEY = "RGAPI-6d7c4811-9073-4899-ab14-3a798d3d6f13"
 
 class ApiUrl:
     MASTER_LEAGUE_API = "/lol/league/v4/masterleagues/by-queue/"

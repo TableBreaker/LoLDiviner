@@ -39,5 +39,5 @@ def requestURL(API, param):
     url = urlFormat.format(API, param, apiData.APIKEY)
     print ("Request: " + url)
     response = requests.get(url)
-    time.sleep(.05)
+    time.sleep(1.5)
     return response.json()

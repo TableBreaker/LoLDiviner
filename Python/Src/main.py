@@ -7,19 +7,19 @@ import api
 from lolData import matchData, apiData, generatedData, matchListData, summonerData
 
 def main():
-    res = api.requestMatchData(2938928303)
+    targetId = 2938928303
+    res = api.requestMatchData(targetId)
     match = matchData.MatchDto(res)
     group = makeGroup(match)
-    exportJson(group, "TestGroup")
-    return 0
+    exportJson(group, "MatchGroup" + str(targetId))
 
 def makeGroup(targetMatch):
     group = generatedData.MatchGroup(targetMatch)
     for item in targetMatch.participantIdentities:
+        print ("Make summoner data ID: " + str(item.participantId))
         smGroup = makeSummonerMatchGroup(item.player.accountId)
         group.summonerGroups.append(smGroup)
-    
-    #print (group.toJson())
+
     return group
 
 def makeSummonerMatchGroup(accountId):
@@ -30,22 +30,27 @@ def makeSummonerMatchGroup(accountId):
     matchListResponse = api.requestMatchList(accountId)
     matchList = matchListData.MatchlistDto(matchListResponse)
 
+    index = 0
     for item in matchList.matches:
         matchJson = api.requestMatchData(item.gameId)
         matchDto = matchData.MatchDto(matchJson)
+        matchDto.processMatchData(accountId)
         smMatchGroup.matchs.append(matchDto)
+        index += 1
+        if index >= 10:
+            break
 
     return smMatchGroup
 
 def exportJson(obj, name):
     path = "Resource/" + name + ".json"
     file = open(path, "w")
-    json.dump(obj, file, default=lambda o: o.__dict__)
+    json.dump(obj, file, default = lambda o: o.__dict__, indent = 4)
     file.close()
     print ("write json file: " + path)
 
 def toJson(obj):
-    return json.dumps(obj, default=lambda o: o.__dict__)
+    return json.dumps(obj, default = lambda o: o.__dict__, indent = 4)
 
 
 if __name__ == "__main__":
