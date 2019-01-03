@@ -4,7 +4,7 @@ import json
 import sys
 import time
 import api
-from lolData import matchData, apiData, generatedData, matchListData, summonerData
+from lolData import matchData, apiData, generatedData, matchListData, summonerData, leagueData
 
 def main():
     targetId = 2938928303
@@ -13,16 +13,19 @@ def main():
     group = makeGroup(match)
     exportJson(group, "MatchGroup" + str(targetId))
 
+def makeLeagueGroup(leagueListDto):
+    return
+
 def makeGroup(targetMatch):
     group = generatedData.MatchGroup(targetMatch)
     for item in targetMatch.participantIdentities:
         print ("Make summoner data ID: " + str(item.participantId))
-        smGroup = makeSummonerMatchGroup(item.player.accountId)
+        smGroup = makeSummonerMatchGroup(item.player.accountId, targetMatch.gameId)
         group.summonerGroups.append(smGroup)
 
     return group
 
-def makeSummonerMatchGroup(accountId):
+def makeSummonerMatchGroup(accountId, targetMatchId):
     summonerjson = api.requestSummonerDataByAccount(accountId)
     smDto = summonerData.SummonerDTO(summonerjson)
     smMatchGroup = generatedData.SummonerMatchGroup(smDto)
@@ -31,7 +34,15 @@ def makeSummonerMatchGroup(accountId):
     matchList = matchListData.MatchlistDto(matchListResponse)
 
     index = 0
-    for item in matchList.matches:
+    start = False
+    for item in reversed(matchList.matches):
+        if item.gameId == targetMatchId:
+            start = True
+            continue
+
+        if not start:
+            continue
+        
         matchJson = api.requestMatchData(item.gameId)
         matchDto = matchData.MatchDto(matchJson)
         matchDto.processMatchData(accountId)
@@ -41,6 +52,17 @@ def makeSummonerMatchGroup(accountId):
             break
 
     return smMatchGroup
+
+# def  makeIdGroup(targetId):
+#     idGroup = generatedData.MatchIDGroup(targetId)
+#     res = api.requestMatchData(targetId)
+#     match = matchData.MatchDto(res)
+#     for ()
+#     return idGroup
+
+# def makeSummonerMatchIdGroup(accountId, targetId):
+#     smidGroup = generatedData.SummonerMatchIDGroup(accountId)
+#     return smidGroup
 
 def exportJson(obj, name):
     path = "Resource/" + name + ".json"
